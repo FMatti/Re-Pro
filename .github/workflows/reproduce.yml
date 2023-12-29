@@ -1,0 +1,53 @@
+name: Reproduce project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+#     LaTeX project name (basename of main file, e.g. main.tex -> main)
+      LATEX_PROJECT: "main"
+#     Python scripts (glob patterns possible, e.g. "*.py" considers all .py files)
+      PYTHON_SCRIPT: "*.py"
+
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+#       Install Python packages (can also add pip install -r requirements.txt)
+        run: |
+          pip install --upgrade pip
+          pip install numpy matplotlib scipy
+
+      - name: Set up LaTeX environment
+#       Install the LaTeX packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install texlive texlive-publishers texlive-science cm-super dvipng
+
+      - name: Run Python scripts
+        run: |
+          find . -name "${{ env.PYTHON_SCRIPT }}" -exec sh -c "grep '\- name\:.*' {} | python {}" \;
+
+      - name: Compile LaTeX document
+        run: |
+          pdflatex ${{ env.LATEX_PROJECT }}
+          bibtex ${{ env.LATEX_PROJECT }}
+          pdflatex ${{ env.LATEX_PROJECT }}
+          pdflatex ${{ env.LATEX_PROJECT }}
+
+      - name: Upload thesis as PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: outcome
+          path: ${{ env.LATEX_PROJECT }}.pdf
