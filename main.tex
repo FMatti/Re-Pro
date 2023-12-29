@@ -1,0 +1,25 @@
+\documentclass[12pt]{article}
+
+% Import pgf plots
+\usepackage{pgf}
+\def\mathdefault#1{#1}
+
+\title{Re-Pro example}
+\author{FMatti}
+
+\begin{document}
+
+\maketitle
+
+This is a demonstration project which is provably reproducible. \cite{article2021}
+
+\begin{figure}[ht]
+    \centering
+    \input{plot.pgf}
+    \caption{Example plot.}
+\end{figure}
+
+\bibliographystyle{acm}
+\bibliography{bibliography.bib}
+
+\end{document}
