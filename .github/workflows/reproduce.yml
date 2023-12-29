@@ -1,3 +1,6 @@
+# Re-Pro preset: Python and LaTeX with BibTeX
+# Read more about provable reproducibility at https://github.com/FMatti/Re-Pro
+
 name: Reproduce project
 
 on:
