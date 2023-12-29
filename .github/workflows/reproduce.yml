@@ -1,3 +1,6 @@
+# Re-Pro preset: Python and LaTeX
+# Read more about provable reproducibility at https://github.com/FMatti/Re-Pro
+
 name: Reproduce project
 
 on:
@@ -41,9 +44,6 @@ jobs:
 
       - name: Compile LaTeX document
         run: |
-          pdflatex ${{ env.LATEX_PROJECT }}
-          bibtex ${{ env.LATEX_PROJECT }}
-          pdflatex ${{ env.LATEX_PROJECT }}
           pdflatex ${{ env.LATEX_PROJECT }}
 
       - name: Upload thesis as PDF artifact
