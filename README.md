@@ -15,7 +15,7 @@ Provable reproducibility is an initiative, which pursues the goal of making resu
 To make your GitHub project provably reproducibile, run the following command:
 
 ```bash
-git pull https://github.com/FMatti/Re-Pro <preset>
+git pull https://github.com/FMatti/Re-Pro <preset> --allow-unrelated-histories
 ```
 
 You may choose from the following presets: 
@@ -45,17 +45,17 @@ git push
 
 On your GitHub repository, every time you push to main branch, a pipeline will be executed. If everything goes well, a green check mark will appear next to the commit message.
 
-[Check mark image]
+![check-mark](https://github.com/FMatti/Re-Pro/assets/79205741/da1dccf2-68c0-4d54-bd65-9cda44496bcd)
 
-You can view all the GitHub actions in the Actions tab. Click on one to see all the details. This is also where you can download a ZIP archive with the generated PDF in it.
+You can view all the GitHub actions in the `Actions` tab. Click on one to see all the details.
 
-[PDF artifact generated.]
+![pipeline-steps](https://github.com/FMatti/Re-Pro/assets/79205741/e57afb3b-122c-4e7e-88b8-ea8c5212eec9)
 
-If something goes wrong, a red cross appears and you can click it and display more details about where the failure happened.
+This is also where you can download a ZIP archive with the generated PDF in it.
 
-[Failed image]
+![artifacts-outcome](https://github.com/FMatti/Re-Pro/assets/79205741/950966f0-8b0d-49a6-877f-05215369aa09)
 
-Once you publish your GitHub repository, everyone can inspect your code and the steps used to generate your results.
+Once you publish your GitHub repository, everyone can inspect your code and the steps used to generate your results. If something goes wrong, a red cross appears and you can inspect the action as above to see where something went wrong.
 
 ## Common issues
 
@@ -72,6 +72,8 @@ The `main` branch of this repository (which you are currently viewing) serves as
 - Python script called `plot.py` which downloads and saves a matrix (`matrix.npz`) from the internet, analyzes its principal components, and visualizes them in a plot which is saved as `plot.pgf`.
 
 - LaTeX project `main.tex` with a bibliography `bibliography.bib` which produces a PDF in which the generated plot `plot.pgf` is included.
+
+![example-project](https://github.com/FMatti/Re-Pro/assets/79205741/ba8ea68a-7150-4fbb-a313-a9ab6d564fb5)
 
 ## The Re-Pro badge
 
@@ -92,7 +94,7 @@ jobs:
       contents: write
 ```
 
-Subsequently you can add the following step to your action (make sure to replace `[FILE]` by the filepaths of the files you want to be changed):
+Subsequently you can add the following step to your action (make sure to replace `[FILES]` by the space-separated filepaths of the files you want to be changed):
 
 ```yaml
 - name: Commit and push generated files to repository
