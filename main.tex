@@ -2,6 +2,8 @@
 
 % Import pgf plots
 \usepackage{pgf}
+\usepackage{tikz}
+\usepackage{hyperref}
 \def\mathdefault#1{#1}
 
 \title{Re-Pro example}
@@ -11,12 +13,20 @@
 
 \maketitle
 
-This is a demonstration project which is provably reproducible. \cite{article2021}
+This is a demonstration project which is provably reproducible.
+It is compatible with BibTeX \cite{article2021}.
+The following plot is generated in Python.
 
 \begin{figure}[ht]
     \centering
     \input{plot.pgf}
-    \caption{Example plot.}
+    \caption{This is an example plot.}
+\end{figure}
+
+Below you can see the Re-Pro badge generated for this project:
+
+\begin{figure}[ht]
+\include{re-pro-badge.tex}
 \end{figure}
 
 \bibliographystyle{acm}

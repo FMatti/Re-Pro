@@ -64,6 +64,7 @@ Unless you are using some extraordinary dependencies or features in your project
 - Ìf the branch you want to run the reproducibility proof on is not called `main`, you'll need to modify the `branches:` key at the top of the `reproduce.yml` file.
 - If your code files or LaTeX project is located in subdirectories, relative imports may not work any longer, hence you'll need to manually specify the working directory by adding  `
   working-directory: [PATH]` below the commands which run the code.
+- Merge if already have other pipelines called `reproduce.yml` [TODO]
 
 ## Example
 
@@ -77,9 +78,18 @@ The `main` branch of this repository (which you are currently viewing) serves as
 
 ## The Re-Pro badge
 
-The Re-Pro badge is the seal of reproducibility which can be displayed in a document. It certifies that a document was indeed produced based on the given commit.
+The Re-Pro badge is the certificate of reproducibility, which you can display in your document. It certifies that a document was indeed produced based on a given state of a source.
 
 [Image of badge]
+
+The badge is automatically generated. You can display it in your `LaTeX` documents by adding the following lines (if necessary):
+
+```[tex]
+\usepackage{tikz}
+\usepackage{hyperref}
+...
+\input{re-pro-badge.tex}
+```
 
 ## Advanced usage
 

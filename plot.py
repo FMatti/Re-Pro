@@ -63,6 +63,6 @@ u, _, _ = sp.sparse.linalg.svds(A, k=2)
 pc = (u.T @ A)
 
 # Visualize principal components
-plt.figure(figsize=(3, 3))
+plt.figure(figsize=(3, 1.5))
 plt.scatter(pc[0], pc[1], color="#2F455C")
 plt.savefig("plot.pgf", bbox_inches="tight")
