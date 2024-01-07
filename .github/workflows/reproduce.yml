@@ -42,6 +42,23 @@ jobs:
         run: |
           find . -name "${{ env.CODE_FILES }}" -exec sh -c "grep '\- name\:.*' {} | python {}" \;
 
+      - name: Obtain commit hash and time
+        run: |
+          echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+          echo "build_time=$(date +'%Y-%m-%d at %H:%M:%S UTC')" >> $GITHUB_ENV
+
+      - name: Generate Re-Pro badge
+        run: |
+          echo "\begin{tikzpicture}" > "re-pro-badge.tex"
+          echo "    \draw[black, line width=3pt] (0.1, 0.95) to (\textwidth, 0.95) (0.1, -0.95) to (0.8\textwidth, -0.95);" >> "re-pro-badge.tex"
+          echo "    \fill[white] (0, 1.1) to (1, 1.1) arc (90:-90:1.1) to (0, -1.1);" >> "re-pro-badge.tex"
+          echo "    \fill[black] (1, 0) circle (1);" >> "re-pro-badge.tex"
+          echo "    \draw[white, line width=1pt] (0.35, 0.55) arc(140:-80:0.45) to (1.1, -0.65) to (0.95, -0.65) (0.45, 0.45) arc(140:-110:0.31) to (0.58, -0.65) (1.35, -0.65) arc(270:20:0.35) to (1.35, -0.35) (1.35, -0.51) arc(270:50:0.21) (1.43, -0.65) rectangle (1.57, -0.51);" >> "re-pro-badge.tex"
+          echo "    \node[anchor=west] at (2.1, 0.45) {This document is provably reproducible.};" >> "re-pro-badge.tex"
+          echo "    \node[anchor=west] at (2.3, -0.1) {\small \texttt{> hosted at \url{${{ github.server_url }}/${{ github.repository }}}}};" >> "re-pro-badge.tex"
+          echo "    \node[anchor=west] at (2.3, -0.5) {\small \texttt{> built on ${{ env.build_time }} from \href{${{ github.server_url }}/${{ github.repository }}/tree/${{ env.sha_short }}}{${{ env.sha_short }}}}};" >> "re-pro-badge.tex"
+          echo "\end{tikzpicture}" >> "re-pro-badge.tex"
+
       - name: Compile LaTeX document
         run: |
           pdflatex ${{ env.LATEX_PROJECT }}
