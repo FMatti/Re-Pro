@@ -40,7 +40,6 @@ jobs:
           find . -name "${{ env.CODE_FILES }}" -exec sh -c "grep '\- name\:.*' {} | python {}" \;
 
       - name: Obtain commit hash and time
-        shell: bash
         run: |
           echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
           echo "build_time=$(date +'%Y-%m-%d at %H:%M:%S UTC')" >> $GITHUB_ENV
