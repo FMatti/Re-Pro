@@ -1,3 +1,5 @@
+![repro-header](https://github.com/FMatti/Re-Pro/assets/79205741/b165456b-3713-401c-befe-c61ee2e6db74)
+
 # Re-Pro
 
 This repository helps you set up a reproducibility proof for your project. It's quite easy, trust me.
@@ -18,14 +20,14 @@ To make your GitHub project provably reproducibile, run the following command:
 git pull https://github.com/FMatti/Re-Pro <preset> --allow-unrelated-histories
 ```
 
-You may choose from the following presets: 
+Currently, you may choose from the following presets: 
 
 | Preset | Description |
 | ------ | ------------- |
 | python-latex | Python scripts and LaTeX project |
 | python-latex-bibtex | Python scripts and LaTeX project with BibTeX bibliography component |
-| matlab-latex | MATLAB scripts and LaTeX project |
-| julia-latex  | Julia scripts and LaTeX project |
+| matlab-latex | (UNDER CONSTRUCTION) MATLAB scripts and LaTeX project |
+| julia-latex  | (UNDER CONSTRUCTION) Julia scripts and LaTeX project |
 
 In the `.github/workflows` directory, you may have to modify the `reproduce.yml` file as follows:
 
@@ -55,16 +57,21 @@ This is also where you can download a ZIP archive with the generated PDF in it.
 
 ![artifacts-outcome](https://github.com/FMatti/Re-Pro/assets/79205741/950966f0-8b0d-49a6-877f-05215369aa09)
 
-Once you publish your GitHub repository, everyone can inspect your code and the steps used to generate your results. If something goes wrong, a red cross appears and you can inspect the action as above to see where something went wrong.
+Once you publish your GitHub repository, everyone can inspect your code and the steps used to generate your results. If an error occurs in your pipeline, a red cross appears and you can inspect the action as above to see what happened.
 
-## Common issues
+## The Re-Pro badge
 
-Unless you are using some extraordinary dependencies or features in your project, your repository should now be configured for provable reproducibility. Some common problems which are encountered by people trying to set up a reproducibility proof are:
+The Re-Pro badge is the certificate of reproducibility, which you can display in your document. It certifies that a document was indeed produced based on a given state of a source.
 
-- Ìf the branch you want to run the reproducibility proof on is not called `main`, you'll need to modify the `branches:` key at the top of the `reproduce.yml` file.
-- If your code files or LaTeX project is located in subdirectories, relative imports may not work any longer, hence you'll need to manually specify the working directory by adding  `
-  working-directory: [PATH]` below the commands which run the code.
-- Merge if already have other pipelines called `reproduce.yml` [TODO]
+![repro-badge](https://github.com/FMatti/Re-Pro/assets/79205741/2fdcb113-5e6f-4cab-9ab9-b6130246cb88)
+
+The badge is automatically generated. You can display it in your `LaTeX` documents with the following command:
+
+```[tex]
+\input{re-pro-badge.tex}
+```
+
+Doing this requires the `tikz` and `hyperref` packages, which you should include in your preamble using the `\usepackage{...}` command.
 
 ## Example
 
@@ -74,22 +81,14 @@ The `main` branch of this repository (which you are currently viewing) serves as
 
 - LaTeX project `main.tex` with a bibliography `bibliography.bib` which produces a PDF in which the generated plot `plot.pgf` is included.
 
-![example-project](https://github.com/FMatti/Re-Pro/assets/79205741/ba8ea68a-7150-4fbb-a313-a9ab6d564fb5)
+## Common issues
 
-## The Re-Pro badge
+Unless you are using some extraordinary dependencies or features in your project, your repository should now be configured for provable reproducibility. Some common problems which are encountered by people trying to set up a reproducibility proof are:
 
-The Re-Pro badge is the certificate of reproducibility, which you can display in your document. It certifies that a document was indeed produced based on a given state of a source.
-
-[Image of badge]
-
-The badge is automatically generated. You can display it in your `LaTeX` documents by adding the following lines (if necessary):
-
-```[tex]
-\usepackage{tikz}
-\usepackage{hyperref}
-...
-\input{re-pro-badge.tex}
-```
+- Ìf the branch you want to run the reproducibility proof on is not called `main`, you'll need to modify the `branches:` key at the top of the `reproduce.yml` file.
+- If your code files or LaTeX project is located in subdirectories, relative imports may not work any longer, hence you'll need to manually specify the working directory by adding  `
+  working-directory: [PATH]` below the commands which run the code.
+- In case you already use another GitHub action implemented in a file called `reproduce.yml`, you might have to resolve merge conflicts.
 
 ## Advanced usage
 
@@ -112,7 +111,7 @@ Subsequently you can add the following step to your action (make sure to replace
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git add [FILES]
-        git commit -m "reproduce thesis"
+        git commit -m "reproduce project"
         git push
 ```
 
