@@ -1,4 +1,4 @@
-# Re-Pro preset: Julia and LaTeX
+# Re-Pro preset: Julia
 # Read more about provable reproducibility at https://github.com/FMatti/Re-Pro
 
 name: Reproduce project
@@ -12,8 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-#     LaTeX project name (basename of main file, e.g. main.tex -> main)
-      LATEX_PROJECT: "main"
 #     Julia scripts (glob patterns possible, e.g. "*.jl" considers all .jl files)
       CODE_FILES: "*.jl"
 
@@ -32,12 +30,6 @@ jobs:
       - name: Install additional Julia packages
         run: |
           julia -e 'using Pkg; Pkg.add(["Plots", "PlotlyJS", "StatsPlots", "DataFrames", "CSV"])'
-
-      - name: Set up LaTeX environment
-#       Install the LaTeX packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install texlive texlive-publishers texlive-science cm-super dvipng
 
       - name: Run Julia scripts
         run: |
@@ -64,13 +56,3 @@ jobs:
           echo "    \node[anchor=west] at (2.3, -0.1) {\small \texttt{> hosted at \url{${{ github.server_url }}/${{ github.repository }}}}};" >> "re-pro-badge.tex"
           echo "    \node[anchor=west] at (2.3, -0.5) {\small \texttt{> built on ${{ env.build_time }} from \href{${{ github.server_url }}/${{ github.repository }}/tree/${{ env.sha_short }}}{${{ env.sha_short }}}}};" >> "re-pro-badge.tex"
           echo "\end{tikzpicture}" >> "re-pro-badge.tex" 
-
-      - name: Compile LaTeX document
-        run: |
-          pdflatex ${{ env.LATEX_PROJECT }}
-
-      - name: Upload thesis as PDF artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: outcome
-          path: ${{ env.LATEX_PROJECT }}.pdf
