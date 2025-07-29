@@ -24,10 +24,17 @@ Currently, you may choose from the following presets:
 
 | Preset | Description |
 | ------ | ------------- |
+| latex | LaTeX project |
+| latex-bibtex | LaTeX project with BibTeX bibliography component |
+| python | Python scripts |
 | python-latex | Python scripts and LaTeX project |
 | python-latex-bibtex | Python scripts and LaTeX project with BibTeX bibliography component |
-| matlab-latex | (UNDER CONSTRUCTION) MATLAB scripts and LaTeX project |
-| julia-latex  | (UNDER CONSTRUCTION) Julia scripts and LaTeX project |
+| julia | Julia scripts |
+| julia-latex | Julia scripts and LaTeX project |
+| julia-latex-bibtex | Julia scripts and LaTeX project with BibTeX bibliography component |
+| matlab | MATLAB scripts (only public repositories) |
+| matlab-latex | MATLAB scripts and LaTeX project (only public repositories) |
+| matlab-latex-bibtex | MATLAB scripts and LaTeX project with BibTeX bibliography component (only public repositories) |
 
 In the `.github/workflows` directory, you may have to modify the `reproduce.yml` file as follows:
 
