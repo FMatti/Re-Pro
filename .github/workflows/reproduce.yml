@@ -68,6 +68,9 @@ jobs:
       - name: Compile LaTeX document
         run: |
           pdflatex ${{ env.LATEX_PROJECT }}
+          bibtex ${{ env.LATEX_PROJECT }}
+          pdflatex ${{ env.LATEX_PROJECT }}
+          pdflatex ${{ env.LATEX_PROJECT }}
 
       - name: Upload thesis as PDF artifact
         uses: actions/upload-artifact@v4
